@@ -1,0 +1,585 @@
+-- // JARVIS \\ --
+loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/resources/main/main"))()
+local Fluent = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/HeyGyt/fluentmoddeduilib/refs/heads/main/FluentPro.txt"
+))()
+
+Fluent:RegisterCustomTheme("Void", {
+    Accent = Color3.fromRGB(200, 200, 210),        
+    AcrylicMain = Color3.fromRGB(7, 7, 9),
+    AcrylicBorder = Color3.fromRGB(35, 35, 40),
+    AcrylicGradient = ColorSequence.new(
+        Color3.fromRGB(11, 11, 13),
+        Color3.fromRGB(4, 4, 6)
+    ),
+    AcrylicNoise = 0.97,
+    TitleBarLine = Color3.fromRGB(55, 55, 60),
+    Tab = Color3.fromRGB(15, 15, 18),
+    Element = Color3.fromRGB(12, 12, 15),
+    ElementBorder = Color3.fromRGB(40, 40, 45),
+    InElementBorder = Color3.fromRGB(70, 70, 80),
+    ElementTransparency = 0.93,
+    ToggleSlider = Color3.fromRGB(28, 28, 32),
+    ToggleToggled = Color3.fromRGB(200, 200, 210),
+    SliderRail = Color3.fromRGB(28, 28, 32),
+    CheckboxUnchecked = Color3.fromRGB(28, 28, 32),
+    CheckboxChecked = Color3.fromRGB(200, 200, 210),
+    DropdownFrame = Color3.fromRGB(11, 11, 14),
+    DropdownHolder = Color3.fromRGB(6, 6, 8),
+    DropdownBorder = Color3.fromRGB(40, 40, 45),
+    DropdownOption = Color3.fromRGB(200, 200, 210),
+    Keybind = Color3.fromRGB(15, 15, 18),
+    Input = Color3.fromRGB(11, 11, 14),
+    InputFocused = Color3.fromRGB(7, 7, 9),
+    InputIndicator = Color3.fromRGB(180, 180, 190),
+    Dialog = Color3.fromRGB(9, 9, 12),
+    DialogHolder = Color3.fromRGB(6, 6, 8),
+    DialogHolderLine = Color3.fromRGB(50, 50, 55),
+    DialogButton = Color3.fromRGB(13, 13, 16),
+    DialogButtonBorder = Color3.fromRGB(50, 50, 55),
+    DialogBorder = Color3.fromRGB(40, 40, 45),
+    DialogInput = Color3.fromRGB(11, 11, 14),
+    DialogInputLine = Color3.fromRGB(180, 180, 190),
+    Text = Color3.fromRGB(240, 240, 245),
+    SubText = Color3.fromRGB(165, 165, 175),
+    Hover = Color3.fromRGB(25, 25, 30),
+    HoverChange = 0.04,
+
+    ShineEnabled = true,
+    Shine = {
+        Speed = 0.5,
+        RotationSpeed = 25,
+        ColorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 40)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(90, 90, 100)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 40)),
+        }),
+    },
+    StrokeShine = true,
+    StrokeDark = Color3.fromRGB(40, 40, 45),
+
+    ButtonGradient = {
+        Background = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 40)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 18)),
+        }),
+        Stroke = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(70, 70, 80)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(110, 110, 120)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(70, 70, 80)),
+        }),
+    },
+})
+
+Fluent:RegisterCustomTheme("Pearlescent", {
+    Accent = Color3.fromRGB(255, 240, 245),
+    AcrylicMain = Color3.fromRGB(255, 248, 252),
+    AcrylicBorder = Color3.fromRGB(220, 200, 230),
+    AcrylicGradient = ColorSequence.new(
+        Color3.fromRGB(255, 252, 255),
+        Color3.fromRGB(235, 225, 245)
+    ),
+    AcrylicNoise = 1,
+    TitleBarLine = Color3.fromRGB(200, 180, 220),
+    Tab = Color3.fromRGB(245, 235, 255),
+    Element = Color3.fromRGB(250, 245, 255),
+    ElementBorder = Color3.fromRGB(210, 190, 225),
+    InElementBorder = Color3.fromRGB(180, 150, 200),
+    ElementTransparency = 0.45,
+    ToggleSlider = Color3.fromRGB(230, 220, 240),
+    ToggleToggled = Color3.fromRGB(180, 100, 255),
+    SliderRail = Color3.fromRGB(220, 210, 235),
+    CheckboxUnchecked = Color3.fromRGB(220, 210, 235),
+    CheckboxChecked = Color3.fromRGB(180, 100, 255),
+    DropdownFrame = Color3.fromRGB(245, 240, 255),
+    DropdownHolder = Color3.fromRGB(255, 250, 255),
+    DropdownBorder = Color3.fromRGB(200, 180, 220),
+    DropdownOption = Color3.fromRGB(140, 90, 200),
+    Keybind = Color3.fromRGB(245, 240, 255),
+    Input = Color3.fromRGB(250, 245, 255),
+    InputFocused = Color3.fromRGB(255, 252, 255),
+    InputIndicator = Color3.fromRGB(160, 100, 220),
+    Dialog = Color3.fromRGB(250, 245, 255),
+    DialogHolder = Color3.fromRGB(255, 252, 255),
+    DialogHolderLine = Color3.fromRGB(200, 170, 220),
+    DialogButton = Color3.fromRGB(245, 240, 255),
+    DialogButtonBorder = Color3.fromRGB(180, 140, 210),
+    DialogBorder = Color3.fromRGB(200, 180, 220),
+    DialogInput = Color3.fromRGB(250, 245, 255),
+    DialogInputLine = Color3.fromRGB(160, 100, 220),
+    Text = Color3.fromRGB(40, 35, 55),
+    SubText = Color3.fromRGB(90, 80, 110),
+    Hover = Color3.fromRGB(230, 220, 245),
+    HoverChange = 0.04,
+
+    ShineEnabled = true,
+    Shine = {
+        Speed = 0.4,
+        RotationSpeed = 18,
+        ColorSequence = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 250)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 180, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 240, 250)),
+        }),
+    },
+    StrokeShine = true,
+    StrokeDark = Color3.fromRGB(200, 180, 220),
+
+    ButtonGradient = {
+        Background = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(240, 230, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(215, 200, 240)),
+        }),
+        Stroke = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 160, 255)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(230, 190, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 160, 255)),
+        }),
+    },
+})
+
+local Window = Fluent:CreateWindow({
+    Title = "jarvis",
+    SubTitle = "industries",
+    TabWidth = 180,
+    Size = UDim2.fromOffset(650, 500),
+    Acrylic = true,
+    Theme = "Void",
+    MinimizeKey = Enum.KeyCode.RightControl,
+    Search = true,
+})
+
+-- ==================== PLAYER TAB ====================
+local PlayerTab = Window:AddTab({ Title = "Player", Icon = "solar/user-bold" })
+
+PlayerTab:AddSlider(1, { Title = "WalkSpeed", Min = 0, Max = 500, Default = 16, Rounding = 0, Callback = function(v)
+    local hum = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if hum then hum.WalkSpeed = v end
+end})
+
+PlayerTab:AddSlider(2, { Title = "JumpPower", Min = 0, Max = 400, Default = 50, Rounding = 0, Callback = function(v)
+    local hum = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if hum then hum.JumpPower = v end
+end})
+
+PlayerTab:AddSlider(3, { Title = "Gravity", Min = 0, Max = 500, Default = workspace.Gravity, Rounding = 1, Callback = function(v)
+    workspace.Gravity = v 
+end})
+
+PlayerTab:AddSlider(4, { Title = "Time of Day", Min = 0, Max = 24, Default = 12, Rounding = 1, Callback = function(v)
+    game.Lighting.TimeOfDay = v 
+end})
+
+PlayerTab:AddButton({ Title = "Respawn", Callback = function()
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/respawn/main/main"))()
+
+    Fluent:Notify({
+        Title = "Jarvis",
+        Content = "Force Respawn Attempted (Can take a while)",
+        Duration = 5
+    })
+end})
+
+PlayerTab:AddButton({ Title = "Rejoin", Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/rejoin/main/main"))()
+end})
+
+-- ==================== UTILITY TAB ====================
+local UtilityTab = Window:AddTab({ Title = "Utility", Icon = "solar/settings-bold" })
+
+UtilityTab:AddButton({ Title = "BTools", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/btools/main/main"))() end})
+UtilityTab:AddButton({ Title = "X-Ray", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/xray/main/main"))() 
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Press E to use",
+    Duration = 5
+})
+end})
+UtilityTab:AddButton({ Title = "Anti-AFK", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/antiafk/main/main"))() end})
+UtilityTab:AddButton({ Title = "Anti Fling", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/antifling/main/main"))() end})
+UtilityTab:AddButton({ Title = "Dex Explorer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/dex/main/main"))() end})
+UtilityTab:AddButton({ Title = "Click TP", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/clicktp/main/main"))() 
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Hold CTRL and click to teleport",
+    Duration = 5
+})
+end})
+UtilityTab:AddButton({ Title = "Infinite Jump", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/infjump/main/main"))() end})
+UtilityTab:AddButton({ Title = "Invisibility", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/invi/main/main"))() 
+    Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Press E to toggle",
+    Duration = 5
+}) end})
+UtilityTab:AddDivider()
+UtilityTab:AddButton({ Title = "FPS Booster", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fpsbooster/main/main"))() end})
+UtilityTab:AddButton({ Title = "Graphics Enhancer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/enhancer/main/main"))() end})
+
+-- ==================== COMBAT TAB ====================
+local CombatTab = Window:AddTab({ Title = "Combat", Icon = "solar/shield-bold" })
+
+_G.AimbotEnabled = false
+_G.TeamCheck = false
+_G.FOVSize = 150
+_G.Smoothing = 0.5
+_G.FOVColor = Color3.fromRGB(255, 100, 100)
+
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Thickness = 2
+FOVCircle.Transparency = 0.7
+FOVCircle.Filled = false
+
+CombatTab:AddToggle(5, { Title = "Aimbot", Description = "Hold RMB to aim", Default = false,
+    Callback = function(v) _G.AimbotEnabled = v end
+})
+
+CombatTab:AddToggle(6, { Title = "Team Check", Default = false, Callback = function(v) _G.TeamCheck = v end })
+
+CombatTab:AddSlider(7, { Title = "Aimbot Smoothing", Min = 0.1, Max = 1, Default = 0.5, Rounding = 2,
+    Callback = function(v) _G.Smoothing = v end
+})
+
+CombatTab:AddSlider(8, { Title = "FOV Size", Description = "A circle around the mouse in which the aimbot picks targets",
+    Min = 10, Max = 800, Default = 150, Rounding = 0, Callback = function(v) _G.FOVSize = v end
+})
+
+CombatTab:AddColorpicker(9, { Title = "FOV Circle Color", Default = Color3.fromRGB(255, 100, 100),
+    Callback = function(v) _G.FOVColor = v end
+})
+
+CombatTab:AddToggle(10, { Title = "ESP", Default = false, Callback = function(v) _G.ESPEnabled = v end })
+
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local highlights = {}
+
+RunService.RenderStepped:Connect(function()
+    -- FOV Circle
+    FOVCircle.Radius = _G.FOVSize
+    FOVCircle.Position = Camera.ViewportSize / 2
+    FOVCircle.Color = _G.FOVColor
+    FOVCircle.Visible = _G.AimbotEnabled
+
+    -- Aimbot
+    if _G.AimbotEnabled and game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+        local closest, shortest = nil, math.huge
+        local mousePos = Camera.ViewportSize / 2
+
+        for _, plr in ipairs(Players:GetPlayers()) do
+            if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("Head") then
+                if not _G.TeamCheck or plr.Team ~= LocalPlayer.Team then
+                    local headPos, onScreen = Camera:WorldToViewportPoint(plr.Character.Head.Position)
+                    if onScreen then
+                        local dist = (Vector2.new(headPos.X, headPos.Y) - mousePos).Magnitude
+                        if dist < shortest and dist < _G.FOVSize then
+                            shortest = dist
+                            closest = plr
+                        end
+                    end
+                end
+            end
+        end
+
+        if closest and closest.Character and closest.Character:FindFirstChild("Head") then
+            Camera.CFrame = Camera.CFrame:Lerp(
+                CFrame.new(Camera.CFrame.Position, closest.Character.Head.Position),
+                _G.Smoothing
+            )
+        end
+    end
+
+    -- ESP
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character then
+            if not highlights[plr] then
+                local hl = Instance.new("Highlight")
+                hl.Adornee = plr.Character
+                hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                hl.FillTransparency = 0.6
+                hl.Parent = game.CoreGui
+                highlights[plr] = hl
+            end
+            highlights[plr].Enabled = _G.ESPEnabled
+        end
+    end
+end)
+
+-- ==================== FE SCRIPTS TAB ====================
+local FETab = Window:AddTab({ Title = "FE Scripts", Icon = "solar/flame-bold" })
+
+FETab:AddButton({ Title = "Winged Master", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fewingled/main/main"))() end})
+FETab:AddButton({ Title = "Spiderman", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/spiderman/main/main"))() 
+    Fluent:Notify({
+    Title = "Jarvis",
+    Content = "E/Q to swing",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Human Car", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/humancar/main/main"))() end})
+FETab:AddButton({ Title = "Telekinesis", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/telekiness/main/main"))() 
+    Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Works only with unanchored objects",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Lagman (R15)", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/sturdy/main/main"))() end})
+FETab:AddButton({ Title = "Parkour Man", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/parkour/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "C to crouch and slide, X to do a complete 360, Double Jump to wallclimb",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Mannequin", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/mannequin/main/main"))() end})
+FETab:AddButton({ Title = "Creepy Crawler", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/crawler/main/main"))() end})
+FETab:AddButton({ Title = "Human Chair", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/chair/main/main"))() end})
+FETab:AddButton({ Title = "Human Table", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/table/main/main"))() end})
+FETab:AddButton({ Title = "Human Helicopter", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/humanhelicopter/main/main"))() end})
+FETab:AddButton({ Title = "Human Cube", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/cube/main/main"))() end})
+FETab:AddButton({ Title = "Holiday Feels", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/holidayfeels/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Q to throw snowball, F to place a gift, C to tp, Z to sit",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Blockhead", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/blockhead/main/main"))() end})
+FETab:AddButton({ Title = "Penis", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/penis/main/main"))() end})
+FETab:AddButton({ Title = "Long Legs", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/longlegs/main/main"))() end})
+FETab:AddButton({ Title = "Trashformer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/trashformer/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "CTRL to hide, Z,X,C to pop up, Shift to run, Click to shoot while hiding",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Earrape", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/earrape/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Doesn't work if RespectFilteringEnabled is true",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Fake VR", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fefakevr/main/main"))() 
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Recommended to use netless",
+    Duration = 5
+})
+end})
+FETab:AddButton({ Title = "Fake Kick", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fakekick/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Will make you type once someone leaves",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Pyramid", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/pyramid/main/main"))() end})
+FETab:AddButton({ Title = "Helicopter", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/helicopter/main/main"))() 
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Q/E to go down/up",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Nameless", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/nameless/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "This script has so many keybinds that I couldn't fit them in here, have fun",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Ragdoll Suicide", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/ragdollsuicide/main/main"))() end})
+FETab:AddButton({ Title = "Hats Orbital", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/hatsv2/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Type .mode (1-11) for cool hat animations",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Walkable Hats", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/walkablehats/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "You need any hat to be equipped, the more the better",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Walkable Tools", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/walkabletools/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "You need any tool your inventory, the more the better",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Hold Hats", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/holdhats/main/main"))() end})
+FETab:AddButton({ Title = "Ball Spin", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/ball/main/main"))() end})
+FETab:AddButton({ Title = "Neck Snap", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/necksnap/main/main"))() end})
+FETab:AddButton({ Title = "Furry Talk", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/furrytalk/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Every chat message you sent turns into a furry one",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Nerd Quote", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/nerdquote/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Makes you quote any chat message with a nerd emoji",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Sad", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/sad/main/main"))() 
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Press F to fly",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Remove Chairs", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/removechairs/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Press F on a chair to remove it",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Nightmare Sans", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/nightmare/main/main"))() end})
+FETab:AddButton({ Title = "Upside Down", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/upsidedown/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Only others can see you upside down",
+    Duration = 5
+})  end})
+FETab:AddButton({ Title = "Fake Lag", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fakelag/main/main"))() end})
+FETab:AddButton({ Title = "Rainbow King", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/rainbow/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "T/R/E to Shoot, G for Idle, Y for Chaos, H to go Insane, J to kneel, Q to Teleport",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Cursed Spider", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/cursedspider/main/main"))() end})
+FETab:AddButton({ Title = "Imposter", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/amogus/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Press C to sit, Click to lean backwards, F to fly, Q to play dead",
+    Duration = 5
+}) end})
+
+FETab:AddDivider()
+
+FETab:AddImage({
+    Image = "rbxassetid://76224518880883",
+    AspectRatio = "1:1",
+    Radius      = 1,
+})
+
+FETab:AddDivider()
+
+FETab:AddParagraph({
+    Title   = "READ",
+    Content = "Scripts below all have fling capabilities in them, and some take a few seconds to load",
+})
+
+FETab:AddButton({ Title = "Meditator", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/meditation/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Levitator", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/levitator/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Polo", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/humanstick/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Long Neck", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/longneck/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Moon Monster", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/moonmonster/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Leg Fighter", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/ae/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Insanity", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/crazy/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Passive fling on touch",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Batman", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/wingedhuman/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Idiot", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/idiote/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Fearful", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fearful/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling, press 1, 2, 3 for modes",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Freddy", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fred/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling, press 1 to show up and 2 to become invisible",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "Saitama", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/work/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling, R for idle",
+    Duration = 5
+}) end})
+FETab:AddButton({ Title = "John Doe", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/johndoe/main/main"))()
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "Click to fling",
+    Duration = 5
+}) end})
+
+local UniTab = Window:AddTab({ Title = "Universal", Icon = "solar/sun-bold" })
+
+UniTab:AddButton({ Title = "Infinite Yield", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))() end})
+UniTab:AddButton({ Title = "Uhhhhhh Reanim", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/STEVE-916-create/Uhhhhhh/main/source/reanim.lua"))() end})
+-- ==================== SETTINGS TAB ====================
+local SettingsTab = Window:AddTab({ Title = "Settings", Icon = "solar/settings-bold" })
+
+-- Theme Selector
+SettingsTab:AddDropdown(20, {
+    Title = "Theme",
+    Description = "Choose your theme",
+    Values = {
+        "Void", "Pearlescent", "AMOLED", "Blood Red",
+        "Neon Cyber", "Cyanic", "Amber Glow", "Cotton Candy"
+    },
+    Default = "Void",
+    Callback = function(value)
+        Fluent:SetTheme(value)
+    end
+})
+
+SettingsTab:AddButton({ Title = "Destroy Jarvis", Callback = function()
+    Window:Destroy()
+end})
+
+Fluent:Notify({
+    Title = "Jarvis",
+    Content = "At your service, Right CTRL to toggle the UI",
+    Duration = 5
+})
