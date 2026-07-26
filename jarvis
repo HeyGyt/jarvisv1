@@ -574,6 +574,10 @@ SettingsTab:AddDropdown(20, {
     end
 })
 
+SettingsTab:AddDiscord({
+    InviteCode = "https://discord.gg/n3ee5nnXDR"
+})
+
 SettingsTab:AddButton({ Title = "Destroy Jarvis", Callback = function()
     Window:Destroy()
 end})
