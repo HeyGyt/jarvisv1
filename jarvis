@@ -149,7 +149,6 @@ local Window = Fluent:CreateWindow({
     Search = true,
 })
 
--- ==================== PLAYER TAB ====================
 local PlayerTab = Window:AddTab({ Title = "Player", Icon = "solar/user-bold" })
 
 PlayerTab:AddSlider(1, { Title = "WalkSpeed", Min = 0, Max = 500, Default = 16, Rounding = 0, Callback = function(v)
@@ -184,7 +183,6 @@ PlayerTab:AddButton({ Title = "Rejoin", Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/rejoin/main/main"))()
 end})
 
--- ==================== UTILITY TAB ====================
 local UtilityTab = Window:AddTab({ Title = "Utility", Icon = "solar/settings-bold" })
 
 UtilityTab:AddButton({ Title = "BTools", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/btools/main/main"))() end})
@@ -216,21 +214,20 @@ UtilityTab:AddDivider()
 UtilityTab:AddButton({ Title = "FPS Booster", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fpsbooster/main/main"))() end})
 UtilityTab:AddButton({ Title = "Graphics Enhancer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/enhancer/main/main"))() end})
 
--- ==================== COMBAT TAB ====================
 local CombatTab = Window:AddTab({ Title = "Combat", Icon = "solar/shield-bold" })
 
 _G.AimbotEnabled = false
 _G.TeamCheck = false
 _G.FOVSize = 150
 _G.Smoothing = 0.5
-_G.FOVColor = Color3.fromRGB(255, 100, 100)
+_G.FOVColor = Color3.fromRGB(255, 255, 255)
 
 local FOVCircle = Drawing.new("Circle")
 FOVCircle.Thickness = 2
 FOVCircle.Transparency = 0.7
 FOVCircle.Filled = false
 
-CombatTab:AddToggle(5, { Title = "Aimbot", Description = "Hold RMB to aim", Default = false,
+CombatTab:AddToggle(5, { Title = "Aimbot", Description = "Hold RBM to aim", Default = false,
     Callback = function(v) _G.AimbotEnabled = v end
 })
 
@@ -244,28 +241,212 @@ CombatTab:AddSlider(8, { Title = "FOV Size", Description = "A circle around the 
     Min = 10, Max = 800, Default = 150, Rounding = 0, Callback = function(v) _G.FOVSize = v end
 })
 
-CombatTab:AddColorpicker(9, { Title = "FOV Circle Color", Default = Color3.fromRGB(255, 100, 100),
+CombatTab:AddColorpicker(9, { Title = "FOV Circle Color", Default = Color3.fromRGB(255, 255, 255),
     Callback = function(v) _G.FOVColor = v end
 })
 
-CombatTab:AddToggle(10, { Title = "ESP", Default = false, Callback = function(v) _G.ESPEnabled = v end })
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
+local LocalPlayer = Players.LocalPlayer
+
+local HIGHLIGHT_FILL_COLOR = Color3.fromRGB(255, 0, 0)
+local HIGHLIGHT_OUTLINE_COLOR = Color3.fromRGB(255, 255, 255)
+local HIGHLIGHT_FILL_TRANSPARENCY = 0.7
+local HIGHLIGHT_OUTLINE_TRANSPARENCY = 0
+
+local TAG_TEXT_SIZE = 14
+local TAG_SIZE = UDim2.new(0, 200, 0, 50)
+local TAG_OFFSET = Vector3.new(0, 4.5, 0)
+
+local highlights = {} 
+local billboards = {}
+
+local function getHealthColor(health, maxHealth)
+	local pct = maxHealth > 0 and math.clamp(health / maxHealth, 0, 1) or 0
+	local color = Color3.fromRGB(255, 0, 0):Lerp(Color3.fromRGB(0, 255, 0), pct)
+	return string.format(
+		"rgb(%d,%d,%d)",
+		math.floor(color.R * 255),
+		math.floor(color.G * 255),
+		math.floor(color.B * 255)
+	)
+end
+
+local function createHighlight(player)
+	local character = player.Character
+	if not character or highlights[player] then return end
+
+	local highlight = Instance.new("Highlight")
+	highlight.Name = "jarvis"
+	highlight.FillColor = HIGHLIGHT_FILL_COLOR
+	highlight.OutlineColor = HIGHLIGHT_OUTLINE_COLOR
+	highlight.FillTransparency = HIGHLIGHT_FILL_TRANSPARENCY
+	highlight.OutlineTransparency = HIGHLIGHT_OUTLINE_TRANSPARENCY
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+	highlight.Adornee = character
+	highlight.Enabled = _G.ESPEnabled or false
+	highlight.Parent = character
+
+	highlights[player] = highlight
+end
+
+local function removeHighlight(player)
+	local hl = highlights[player]
+	if hl then
+		hl:Destroy()
+		highlights[player] = nil
+	end
+end
+
+local function createBillboard(player)
+	if player == LocalPlayer or billboards[player] then return end
+
+	local character = player.Character
+	local head = character and character:FindFirstChild("Head")
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	if not head or not humanoid then return end
+
+	local bg = Instance.new("BillboardGui")
+	bg.Name = "jarvisesp"
+	bg.Size = TAG_SIZE
+	bg.StudsOffset = TAG_OFFSET
+	bg.AlwaysOnTop = true
+	bg.Adornee = head
+	bg.Parent = head
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Name = "Info"
+	textLabel.BackgroundTransparency = 1
+	textLabel.Size = UDim2.new(1, 0, 1, 0)
+	textLabel.Font = Enum.Font.GothamBold
+	textLabel.TextSize = TAG_TEXT_SIZE
+	textLabel.TextColor3 = Color3.new(1, 1, 1)
+	textLabel.TextStrokeTransparency = 0
+	textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+	textLabel.RichText = true
+	textLabel.Text = player.Name
+	textLabel.Parent = bg
+
+	local localRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+
+	local conn = RunService.Heartbeat:Connect(function()
+		if not _G.ESPEnabled then return end
+		if not head.Parent or not humanoid.Parent then
+		
+			if billboards[player] then
+				if billboards[player].conn then billboards[player].conn:Disconnect() end
+				if billboards[player].bg then billboards[player].bg:Destroy() end
+				billboards[player] = nil
+			end
+			return
+		end
+
+		local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local distanceText = "?"
+		if root then
+			local dist = (head.Position - root.Position).Magnitude
+			distanceText = string.format("%d studs", math.floor(dist))
+		end
+
+		local hpColor = getHealthColor(humanoid.Health, humanoid.MaxHealth)
+		local healthText = string.format(
+			'<font color="%s">%d/%d HP</font>',
+			hpColor,
+			math.floor(humanoid.Health),
+			math.floor(humanoid.MaxHealth)
+		)
+		textLabel.Text = string.format("%s\n%s | %s", player.Name, distanceText, healthText)
+	end)
+
+	billboards[player] = {bg = bg, conn = conn}
+end
+
+local function clearPlayerESP(player)
+	removeHighlight(player)
+
+	local data = billboards[player]
+	if data then
+		if data.conn then data.conn:Disconnect() end
+		if data.bg then data.bg:Destroy() end
+		billboards[player] = nil
+	end
+end
+
+local function refreshAllESP()
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= LocalPlayer then
+			clearPlayerESP(player)
+			createHighlight(player)
+			createBillboard(player)
+		end
+	end
+end
+
+local function onCharacterAdded(player)
+	task.wait(0.5)
+	clearPlayerESP(player)
+
+	if _G.ESPEnabled then
+		createHighlight(player)
+		createBillboard(player)
+	end
+end
+
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function()
+		onCharacterAdded(player)
+	end)
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+	clearPlayerESP(player)
+end)
+
+for _, player in ipairs(Players:GetPlayers()) do
+	if player ~= LocalPlayer then
+		player.CharacterAdded:Connect(function()
+			onCharacterAdded(player)
+		end)
+	end
+end
+
+CombatTab:AddDivider()
+CombatTab:AddToggle(10, {
+    Title = "ESP",
+    Default = false,
+    Callback = function(v)
+        _G.ESPEnabled = v
+
+        if v then
+            refreshAllESP()
+        end
+
+        for _, hl in pairs(highlights) do
+            if hl then hl.Enabled = v end
+        end
+
+        if not v then
+            for _, data in pairs(billboards) do
+                if data.bg then data.bg:Destroy() end
+                if data.conn then data.conn:Disconnect() end
+            end
+            billboards = {}
+        end
+    end
+})
 
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
+local Players = game.Players
 local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 
-local highlights = {}
-
 RunService.RenderStepped:Connect(function()
-    -- FOV Circle
     FOVCircle.Radius = _G.FOVSize
     FOVCircle.Position = Camera.ViewportSize / 2
     FOVCircle.Color = _G.FOVColor
     FOVCircle.Visible = _G.AimbotEnabled
 
-    -- Aimbot
     if _G.AimbotEnabled and game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
         local closest, shortest = nil, math.huge
         local mousePos = Camera.ViewportSize / 2
@@ -292,24 +473,8 @@ RunService.RenderStepped:Connect(function()
             )
         end
     end
-
-    -- ESP
-    for _, plr in ipairs(Players:GetPlayers()) do
-        if plr ~= LocalPlayer and plr.Character then
-            if not highlights[plr] then
-                local hl = Instance.new("Highlight")
-                hl.Adornee = plr.Character
-                hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                hl.FillTransparency = 0.6
-                hl.Parent = game.CoreGui
-                highlights[plr] = hl
-            end
-            highlights[plr].Enabled = _G.ESPEnabled
-        end
-    end
 end)
 
--- ==================== FE SCRIPTS TAB ====================
 local FETab = Window:AddTab({ Title = "FE Scripts", Icon = "solar/flame-bold" })
 
 FETab:AddButton({ Title = "Winged Master", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/HeyGyt/fewingled/main/main"))() end})
@@ -557,10 +722,11 @@ local UniTab = Window:AddTab({ Title = "Universal", Icon = "solar/sun-bold" })
 
 UniTab:AddButton({ Title = "Infinite Yield", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))() end})
 UniTab:AddButton({ Title = "Uhhhhhh Reanim", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/STEVE-916-create/Uhhhhhh/main/source/reanim.lua"))() end})
--- ==================== SETTINGS TAB ====================
+
+
 local SettingsTab = Window:AddTab({ Title = "Settings", Icon = "solar/settings-bold" })
 
--- Theme Selector
+
 SettingsTab:AddDropdown(20, {
     Title = "Theme",
     Description = "Choose your theme",
